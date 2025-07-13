@@ -1,0 +1,15 @@
+# Virtual Environment
+venv/
+ENV/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+*.log
+# Auth
+quiet-amp-275114-083a1f3b2f00.json
+
