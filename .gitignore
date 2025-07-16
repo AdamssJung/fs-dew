@@ -13,3 +13,12 @@ ENV/
 # Auth
 quiet-amp-275114-083a1f3b2f00.json
 
+#Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+node_modules/
+dist/

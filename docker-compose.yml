@@ -1,0 +1,16 @@
+version: "3.11"
+
+services:
+  api:
+    build: .
+    container_name: futsal-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/code
+
+# 개발 초기에는 Postgres 컨테이너 필요 없음
+# 프로덕션 DB는 Supabase 사용
