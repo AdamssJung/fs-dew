@@ -1,7 +1,6 @@
 # app/crud.py
-from fastapi import security
 from sqlalchemy.orm import Session
-from . import models, schemas
+from . import models, schemas, security
 
 # ─────────────────────────────────────────────────────────────
 # Player
@@ -127,6 +126,22 @@ def get_goal_details(db: Session, skip: int = 0, limit: int = 100):
 def create_goal_detail(db: Session, gd: schemas.GoalDetailCreate):
     db_obj = models.GoalDetail(**gd.dict())
     db.add(db_obj); db.commit(); db.refresh(db_obj)
+    return db_obj
+
+# ───────────────────────────────
+# GameGuest (용병)
+# ───────────────────────────────
+def get_game_guest(db: Session, guest_id: int):
+    return db.query(models.GameGuest).filter(models.GameGuest.id == guest_id).first()
+
+def get_game_guests(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.GameGuest).offset(skip).limit(limit).all()
+
+def create_game_guest(db: Session, game_guest: schemas.GameGuestCreate):
+    db_obj = models.GameGuest(**game_guest.dict())
+    db.add(db_obj)
+    db.commit()
+    db.refresh(db_obj)
     return db_obj
 
 # ─────────────────────────────────────────────────────────────

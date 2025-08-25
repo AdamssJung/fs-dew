@@ -131,3 +131,20 @@ class GoalDetail(Base):
     scorer = relationship("Player", back_populates="goal_scored", foreign_keys=[scorer_id])
     assist = relationship("Player", back_populates="goal_assisted", foreign_keys=[assist_id])
     team = relationship("Team")
+class GameGuest(Base):
+    __tablename__ = "game_guests"
+    id = Column(Integer, primary_key=True, index=True)
+    game_id = Column(Integer, ForeignKey("games.id", ondelete="CASCADE"), nullable=False)
+    team_id = Column(Integer, ForeignKey("teams.id", ondelete="CASCADE"), nullable=False)
+    player_id = Column(Integer, ForeignKey("players.id", ondelete="CASCADE"), nullable=False)
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(50), unique=True, nullable=False, index=True)
+    hashed_password = Column(String, nullable=False)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP, default=datetime.utcnow)
+

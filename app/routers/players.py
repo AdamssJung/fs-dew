@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-
-from fs_dew.app import models
-
+from .. import models
 from .. import crud, schemas
 from ..dependencies import get_current_user, get_db
 

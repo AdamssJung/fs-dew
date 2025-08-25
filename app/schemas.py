@@ -165,6 +165,24 @@ class GameStat(GameStatBase):
         orm_mode = True
 
 # ─────────────────────────────────────────────────────────────
+# Game Guest
+# ─────────────────────────────────────────────────────────────
+class GameGuestBase(BaseModel):
+    game_id: int
+    team_id: int
+    player_id: int
+
+class GameGuestCreate(GameGuestBase):
+    pass
+
+class GameGuest(GameGuestBase):
+    id: int
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+# ─────────────────────────────────────────────────────────────
 # GoalDetail
 # ─────────────────────────────────────────────────────────────
 class GoalDetailBase(BaseModel):

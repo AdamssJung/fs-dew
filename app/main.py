@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from .routers import (
     players, seasons, matches, teams, team_players,
-    games, mom_votes, game_stats, goal_details, auth
+    games, mom_votes, game_stats, goal_details, game_guests,auth
 )
 
 app = FastAPI(title="이슬처럼 풋살 API")
@@ -17,6 +17,7 @@ app.include_router(games.router)
 app.include_router(mom_votes.router)
 app.include_router(game_stats.router)
 app.include_router(goal_details.router)
+app.include_router(game_guests.router)
 app.include_router(auth.router)
 
 @app.get("/health")
