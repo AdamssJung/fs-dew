@@ -1,13 +1,12 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
-
 import Login from "./views/Login.vue";
 import Players from "./views/Players.vue";
 
 const routes = [
-  { path: "/", component: Login },       // http://localhost:5173/
-  { path: "/players", component: Players } // http://localhost:5173/players
+  { path: "/", component: Login },
+  { path: "/players", component: Players },
 ];
 
 const router = createRouter({

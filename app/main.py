@@ -1,11 +1,25 @@
 # app/main.py
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .routers import (
     players, seasons, matches, teams, team_players,
     games, mom_votes, game_stats, goal_details, game_guests,auth
 )
 
 app = FastAPI(title="이슬처럼 풋살 API")
+
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # include all routers
 app.include_router(players.router)
