@@ -25,4 +25,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def decode_token(token: str) -> dict:
-    return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    print(">>> DEBUG decoded payload:", payload)   # 디버깅용
+    return payload
+    # return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+
+print(">>> DEBUG SECRET_KEY:", SECRET_KEY)

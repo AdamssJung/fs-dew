@@ -1,6 +1,8 @@
 # app/crud.py
 from sqlalchemy.orm import Session
 from . import models, schemas, security
+from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 
 # ─────────────────────────────────────────────────────────────
 # Player
@@ -153,10 +155,14 @@ def get_user_by_username(db: Session, username: str):
 # ─────────────────────────────────────────────────────────────
 # Create User
 # ─────────────────────────────────────────────────────────────
-def create_user(db: Session, user_create: schemas.UserCreate):
-    hashed = security.get_password_hash(user_create.password)
-    db_user = models.User(username=user_create.username, hashed_password=hashed)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+def create_player(db: Session, player: schemas.PlayerCreate):
+    db_obj = models.Player(**player.dict())
+    try:
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+    except IntegrityError as e:
+        db.rollback()
+        # 중복 키나 유니크 제약 실패 등을 400/409로 예쁘게 내려줄 수도 있어요
+        raise HTTPException(status_code=409, detail="Player insert failed: duplicate or constraint violation")
