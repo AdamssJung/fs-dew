@@ -2,13 +2,15 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 
+from fs_dew.app import models
+
 from .. import crud, schemas
-from ..dependencies import get_db
+from ..dependencies import get_current_user, get_db
 
 router = APIRouter(prefix="/players", tags=["players"])
 
 @router.post("/", response_model=schemas.Player)
-def create_player(player: schemas.PlayerCreate, db: Session = Depends(get_db)):
+def create_player(player: schemas.PlayerCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     return crud.create_player(db, player)
 
 @router.get("/", response_model=List[schemas.Player])
